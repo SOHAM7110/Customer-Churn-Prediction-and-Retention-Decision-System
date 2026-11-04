@@ -1,0 +1,17 @@
+pandas>=2.1
+numpy
+pyarrow
+openpyxl
+matplotlib
+seaborn
+scikit-learn
+pyyaml
+# added in later stages
+xgboost
+lightgbm
+optuna
+shap
+mlflow
+streamlit
+fastapi
+uvicorn

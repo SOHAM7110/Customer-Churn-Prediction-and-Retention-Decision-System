@@ -1,0 +1,13 @@
+# Single source of truth for windows and economics. Every later stage reads this.
+data:
+  start: "2009-12-01"
+  end: "2011-12-09"        # last invoice date in the dataset
+windows:
+  observation_days: 180    # history used for features
+  prediction_days: 90      # no purchase in (T, T+90] => churn
+  snapshot_freq: "MS"      # monthly snapshots
+economics:                 # ASSUMPTIONS - no treatment data exists. Sensitivity-test in Stage 7.
+  offer_cost_gbp: 2.0      # e.g. voucher / discount cost per contacted customer
+  gross_margin: 0.30       # dataset has no cost data
+  value_horizon_days: 90   # customer value = margin on expected spend over this horizon
+  p_offer_works: 0.25      # sensitivity grid: 0.10 - 0.40
