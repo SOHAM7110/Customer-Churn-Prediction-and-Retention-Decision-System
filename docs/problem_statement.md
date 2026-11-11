@@ -1,9 +1,9 @@
 # Problem statement (Stage 1 deliverable)
 
 ## Business question
-An online wholesaler can send a retention offer that costs **£2** per customer. A customer who would
-otherwise lapse but is retained is worth **£V** (gross margin on expected spend over the next 90 days).
-**Which customers should we contact, under what budget, to maximise total expected profit?**
+A retention offer costs a fixed contact fee plus a discount on the customer's next-90-day revenue. A retained customer
+is worth the gross margin on that revenue. **Which customers should we contact, and under what budget, to maximise
+total expected profit?** Economics live in `config.yaml` and are all assumptions.
 
 ## Dataset
 UCI Online Retail II: UK-based online retailer (many wholesale buyers), 2009-12-01 to 2011-12-09.
@@ -31,16 +31,22 @@ UCI Online Retail II: UK-based online retailer (many wholesale buyers), 2009-12-
 - 180d observation window lets 30/60/90-day trend features exist with a full earlier comparison period.
 - Business reasoning: TODO (e.g. a 90d lead time matches a quarterly buying cycle for wholesale customers).
 
-## Time-based split plan (executed in Stage 2)
-Label windows overlap in time, so splits need a purge gap.
-- Train: snapshots up to 2011-03-01 (labels end by 2011-05-30)
-- Validation: 2011-06-01 (labels end 2011-08-30), used for tuning AND calibration
-- Test: 2011-07-01 .. 2011-09-01, touched once at the end
+## Time-based split plan (implemented in src/labels.py, driven by config.yaml)
+Label windows are 90 days long, so neighbouring snapshots overlap in time. Rule: a snapshot joins a split only if
+its **whole label window ends before the next split starts**. Snapshots that straddle a boundary are purged.
+- Train: snapshots 2010-06-01 .. 2011-01-01 (labels end by 2011-03-31)
+- Purged: 2011-02-01, 2011-03-01
+- Validation: 2011-04-01, 2011-05-01 (tuning AND calibration; labels end by 2011-07-30)
+- Purged: 2011-06-01, 2011-07-01
+- Test: 2011-08-01, 2011-09-01 (touched once at the end)
 - Never random k-fold.
+- Note: this replaces an earlier draft where validation (2011-06-01) and test (2011-07-01) label windows overlapped.
+- Caveat: test label windows cover Aug-Nov 2011 (Q4 buying season), so the test churn rate may differ from train. Report it.
 
 ## Economics (ASSUMPTIONS, see config.yaml)
-- Offer cost, gross margin, P(offer works) are assumed. No treatment history exists in this data.
-- P(offer works) will be swept 0.10 - 0.40 in the Stage 7 sensitivity analysis.
+- expected profit of contacting = p * w * m * R - (c + d * R); contact iff p > (c/R + d) / (w * m).
+- w = P(offer works), m = gross margin, c = fixed contact cost, d = discount, R = expected 90-day revenue.
+- None of these is measured: no treatment history exists. They are swept in the Stage 7 sensitivity analysis.
 
 ## Known risks / threats to validity
 - Strong Q4 seasonality: a snapshot in Sept-Oct has a different churn rate than Jan. TODO measured spread.

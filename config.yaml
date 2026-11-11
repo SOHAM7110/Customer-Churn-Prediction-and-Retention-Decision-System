@@ -1,13 +1,31 @@
-# Single source of truth for windows and economics. Every later stage reads this.
+# Single source of truth for windows, splits and economics. Every stage reads this.
 data:
   start: "2009-12-01"
-  end: "2011-12-09"        # last invoice date in the dataset
+  end: "2011-12-09"
 windows:
-  observation_days: 180    # history used for features
-  prediction_days: 90      # no purchase in (T, T+90] => churn
-  snapshot_freq: "MS"      # monthly snapshots
-economics:                 # ASSUMPTIONS - no treatment data exists. Sensitivity-test in Stage 7.
-  offer_cost_gbp: 2.0      # e.g. voucher / discount cost per contacted customer
+  observation_days: 180
+  prediction_days: 90
+snapshots:
+  first: "2010-06-01"
+  freq: "MS"
+splits:                    # a snapshot joins a split only if its WHOLE label window ends before the next split starts
+  val_start: "2011-04-01"
+  test_start: "2011-08-01"
+economics:                 # ALL ASSUMPTIONS - the data has no treatment history. Swept in the sensitivity analysis.
+  contact_cost_gbp: 2.0    # fixed cost per contacted customer (message, handling)
+  discount_pct: 0.05       # the offer is a discount on the customer's next-90d revenue; paid on every contacted customer
   gross_margin: 0.30       # dataset has no cost data
-  value_horizon_days: 90   # customer value = margin on expected spend over this horizon
-  p_offer_works: 0.25      # sensitivity grid: 0.10 - 0.40
+  value_horizon_days: 90   # R = expected 90-day revenue = 180-day revenue run-rate x 90/180
+  p_offer_works: 0.25      # P(a would-be churner is retained | contacted)
+sensitivity:
+  p_offer_works: [0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40]
+  discount_pct: [0.02, 0.05, 0.08, 0.10]
+  gross_margin: [0.20, 0.30, 0.40]
+budget:
+  contact_fraction: 0.20   # for the fixed-budget top-K policy
+ab:
+  alpha: 0.05
+  power: 0.80
+  n_sims: 500
+  n_boot: 2000
+  seed: 7
