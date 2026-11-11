@@ -76,7 +76,8 @@ def split_summary(snaps: pd.DataFrame) -> pd.DataFrame:
     s = snaps.groupby("split").agg(
         snapshots=("snapshot", "nunique"), rows=("customer_id", "size"),
         customers=("customer_id", "nunique"), churn_rate=("churn", "mean"),
-        first_snapshot=("snapshot", "min"), last_snapshot=("snapshot", "max")).round(3)
+            first_snapshot=("snapshot", "min"), last_snapshot=("snapshot", "max"))
+    s["churn_rate"] = s["churn_rate"].round(3)
     return s.reindex([x for x in ["train", "val", "test", "purged"] if x in s.index])
 
 
