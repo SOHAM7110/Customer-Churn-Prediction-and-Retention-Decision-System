@@ -1,0 +1,13 @@
+pandas>=2.1
+numpy
+scipy
+pyarrow
+scikit-learn
+joblib
+matplotlib
+pyyaml
+streamlit
+fastapi
+uvicorn
+xgboost
+lightgbm

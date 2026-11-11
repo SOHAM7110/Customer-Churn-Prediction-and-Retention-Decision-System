@@ -21,6 +21,7 @@ def load_raw(force: bool = False) -> pd.DataFrame:
     print(f"Dropped {n0 - len(df):,} exact duplicate rows (sheet overlap + true dupes)")
     df["invoice"] = df["invoice"].astype(str)
     df["stock_code"] = df["stock_code"].astype(str)
+    df["description"] = df["description"].astype(str)
     df["customer_id"] = df["customer_id"].astype("Int64")
     df["invoice_date"] = pd.to_datetime(df["invoice_date"])
     df["is_cancel"] = df["invoice"].str.startswith("C")
