@@ -1,0 +1,101 @@
+{
+  "features": [
+    "recency_days",
+    "frequency",
+    "monetary",
+    "aov",
+    "orders_30",
+    "orders_60",
+    "orders_90",
+    "revenue_30",
+    "revenue_60",
+    "revenue_90",
+    "order_trend",
+    "spend_trend",
+    "mean_gap_days",
+    "std_gap_days",
+    "gap_cv",
+    "recency_over_gap",
+    "avg_items_per_order",
+    "n_unique_products",
+    "return_rate",
+    "tenure_days",
+    "n_orders_alltime",
+    "is_uk"
+  ],
+  "best": "lgbm",
+  "models": {
+    "lgbm": {
+      "file": "lgbm.joblib",
+      "strategy": "oversample",
+      "params": {
+        "n_estimators": 185,
+        "learning_rate": 0.021391208411144853,
+        "num_leaves": 10,
+        "min_child_samples": 10,
+        "subsample": 0.8267126832817256,
+        "colsample_bytree": 0.6472022909515313,
+        "reg_lambda": 1.8762476324549946
+      },
+      "val": {
+        "n": 6353,
+        "churn_rate": 0.5414764678104832,
+        "roc_auc": 0.7732802133978396,
+        "pr_auc": 0.7648908576885395,
+        "recall_at_10pct": 0.15406976744186046,
+        "lift_top_decile": 1.5390019379844964,
+        "recall_at_20pct": 0.30174418604651165,
+        "brier": 0.1920206374671632
+      }
+    },
+    "lr": {
+      "file": "lr.joblib",
+      "strategy": "class_weight",
+      "params": {
+        "C": 10.0
+      },
+      "val": {
+        "n": 6353,
+        "churn_rate": 0.5414764678104832,
+        "roc_auc": 0.7725928875370233,
+        "pr_auc": 0.761935694774773,
+        "recall_at_10pct": 0.14883720930232558,
+        "lift_top_decile": 1.486733947637853,
+        "recall_at_20pct": 0.3008720930232558,
+        "brier": 0.19546383369919756
+      }
+    },
+    "xgb": {
+      "file": "xgb.joblib",
+      "strategy": "oversample",
+      "params": {
+        "n_estimators": 167,
+        "learning_rate": 0.03775267814912401,
+        "max_depth": 5,
+        "subsample": 0.8282973763926201,
+        "colsample_bytree": 0.6137839585335189,
+        "min_child_weight": 17,
+        "reg_lambda": 17.91794034305017
+      },
+      "val": {
+        "n": 6353,
+        "churn_rate": 0.5414764678104832,
+        "roc_auc": 0.7707903224518797,
+        "pr_auc": 0.7640368006367305,
+        "recall_at_10pct": 0.15436046511627907,
+        "lift_top_decile": 1.5419057152259763,
+        "recall_at_20pct": 0.2997093023255814,
+        "brier": 0.1920960396528244
+      }
+    }
+  },
+  "calibration": {
+    "method": "isotonic",
+    "fit_on": "validation",
+    "selection_brier": {
+      "none": 0.1925,
+      "sigmoid": 0.1914,
+      "isotonic": 0.1912
+    }
+  }
+}

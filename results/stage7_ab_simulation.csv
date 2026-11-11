@@ -1,0 +1,16 @@
+,value
+pool_size,1108.0
+n_per_arm,554.0
+assumed_p_offer_works,0.25
+expected_effect_per_customer_gbp,-0.23898772563177015
+measured_diff_per_customer_gbp,1.6123910198555897
+boot_ci95_low,-4.764803051669675
+boot_ci95_high,8.979545081227435
+total_incremental_profit_gbp,893.2646249999967
+total_ci95_low,-2639.7008906250003
+total_ci95_high,4974.667974999999
+sd_per_customer_gbp,61.76445867163673
+empirical_power,0.0
+analytic_power,0.02900877315648245
+n_per_arm_for_target_power,inf
+target_power,0.8

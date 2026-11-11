@@ -1,0 +1,14 @@
+feature_a,feature_b,abs_spearman
+recency_days,orders_60,0.86
+recency_days,orders_90,0.86
+recency_days,revenue_60,0.84
+recency_days,revenue_90,0.82
+aov,avg_items_per_order,0.82
+orders_30,revenue_30,0.98
+orders_60,orders_90,0.85
+orders_60,revenue_60,0.95
+orders_90,revenue_60,0.81
+orders_90,revenue_90,0.93
+orders_90,order_trend,0.8
+revenue_60,revenue_90,0.84
+order_trend,spend_trend,0.99

@@ -1,0 +1,4 @@
+method,brier,log_loss,ece,mean_pred,base_rate
+none,0.1925,0.5661,0.0494,0.5064,0.5208
+sigmoid,0.1914,0.5618,0.0359,0.5542,0.5208
+isotonic,0.1912,0.5681,0.0365,0.5538,0.5208

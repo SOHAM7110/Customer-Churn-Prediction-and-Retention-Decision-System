@@ -1,0 +1,8 @@
+policy,contacted,contact_rate,precision,retained_margin,offer_cost,net_profit,churn_loss_reduction_pct,net_loss_reduction_pct
+contact nobody,0,0.0,,0.0,0.0,0.0,0.0,0.0
+contact everyone,5543,1.0,0.4173,49369.6696,185311.2294,-135941.5598,25.0,-68.8386
+default threshold (p >= 0.5),3574,0.6448,0.5616,34296.7282,51576.5921,-17279.8638,17.3673,-8.7502
+optimized: expected profit > 0,84,0.0152,0.7857,7236.6709,5429.1972,1807.4736,3.6645,0.9153
+"optimized, budget 20% of customers",84,0.0152,0.7857,7236.6709,5429.1972,1807.4736,3.6645,0.9153
+optimized on UNcalibrated probs,4,0.0007,1.0,3818.262,2553.508,1264.754,1.9335,0.6405
+"random, same size as optimized",84,0.0152,0.4173,748.1602,2808.2524,-2060.0922,0.3789,-1.0432

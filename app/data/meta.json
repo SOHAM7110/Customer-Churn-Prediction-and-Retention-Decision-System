@@ -1,0 +1,10 @@
+{
+  "model": "lgbm",
+  "calibration": "isotonic",
+  "base_logodds": -0.0665476775126834,
+  "snapshots": [
+    "2011-08-01",
+    "2011-09-01"
+  ],
+  "n_rows": 5543
+}
